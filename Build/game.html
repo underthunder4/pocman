@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Template</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <canvas id="canvas"></canvas>
+        <!--<script src="http://localhost:8158/web_dlink_release/godot.js"></script>-->
+        <!--<script src="http://localhost:8158/web_release/godot.js"></script>-->
+        <!--<script src="http://localhost:8158/web_dlink_debug/godot.js"></script>-->
+        <!--<script src="http://localhost:8158/web_debug/godot.js"></script>-->
+        <!--<script src="http://localhost:8158/web_release_4_3beta2/godot.js"></script>-->
+        <script src="http://localhost:8158/web_nothreads_release_4_3beta2/godot.js"></script>
+        <script>
+			//const myWasm = 'http://localhost:8158/web_dlink_release/godot'
+			//const myWasm = 'http://localhost:8158/web_release/godot'
+			//const myWasm = 'http://localhost:8158/web_dlink_debug/godot'
+			//const myWasm = 'http://localhost:8158/web_debug/godot'
+			//const myWasm = 'http://localhost:8158/web_release_4_3beta2/godot'
+			const myWasm = 'http://localhost:8158/web_nothreads_release_4_3beta2/godot'
+			
+			const myPck = 'http://localhost:8158/game.zip'
+			const engine = new Engine()
+			
+			Promise.all([
+				// Load and init the engine
+				engine.init(myWasm),
+				// And the pck concurrently
+				engine.preloadFile(myPck)
+			]).then(() => {
+				console.log('engine.start...')
+				// Now start the engine.
+				return engine.start({ args: ['--main-pack', myPck] });
+			}).then(() => {
+				console.log('Engine has started!');
+			});
+			</script>
+	</body>
+</html>
